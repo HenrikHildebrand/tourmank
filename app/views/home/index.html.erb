@@ -1,0 +1,5 @@
+<% if user_signed_in? %>
+  <%= react_component('App', {user: current_user, csrf: session[:_csrf_token]}) %>
+<% else %>
+  <%= link_to "login", new_user_session_path %>
+<% end %>
