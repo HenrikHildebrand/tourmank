@@ -1,32 +1,66 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Redirect } from "react-router"
+import Swiper from './Swiper'
+import Slide from '@material-ui/core/Slide';
 
-const App = props => {
+const styles = {
+    body: {
+      height: '100%'
+    },
+    container: {
+        width: '100%',
+        padding: 20,
+        marginTop: 20,
+        bottom: 0
+    },
+    logout: {
+        color: 'white'
+    }
+}
 
-    useEffect(() => {
-        console.log(props)
-    }, []);
+class App extends React.Component {
 
-    const logout = () => {
+    state = {
+        loaded: false
+    }
+
+    componentDidMount() {
+        this.setState({
+            loaded: true,
+            csrf: this.props.csrf
+        })
+    }
+
+    logout = () => {
         fetch('/users/sign_out', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'X_CSRF_Token': props.csrf
+                'X_CSRF_Token': this.state.csrf
             }
-        }).then(()=> {window.location = "/signed_out"})
+        }).then(()=> {
+            this.setState({loaded: false});
+            window.location = "/signed_out"
+        })
     }
 
-    return(
-        <div style={{width:500, margin: "auto"}}>
-            <a style={{cursor: 'pointer'}} onClick={logout} >logout</a>
-            <h3>Hello {props.user.email}!</h3>
-            <p>
-                {JSON.stringify(props.user)}
-            </p>
-        </div>
-    )
+    render(){
+        return(
+            <Slide direction="up" in={this.state.loaded} >
+                <Swiper>
+                    <div  label="Info" style={styles.container}>
+                        <a className="btn btn-danger" style={styles.logout} onClick={this.logout} >logout</a>
+                        <h3>Hello {this.props.user.email}!</h3>
+                        {['fgsdfdsg','fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg','fgsdfdsg','fgsdfdsg','fgsdfdsg','fgsdfdsg'].map(el => (<h1>{el}</h1>))}
+                    </div>
+                    <div  label="Info" style={styles.container}>
+                        <h3>Other content</h3>
+                    </div>
+                </Swiper>
+            </Slide>
+
+        )
+    }
 }
 
 App.defaultProps = {

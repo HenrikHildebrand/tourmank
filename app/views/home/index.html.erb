@@ -1,5 +1,15 @@
+<%#= session[:_csrf_token] ? session[:_csrf_token] : nil %>
+<%#= csrf_meta_tag ? csrf_meta_tag : nil %>
+
 <% if user_signed_in? %>
-  <%= react_component('App', {user: current_user, csrf: session[:_csrf_token]}) %>
+  <div id="root">
+    <%= react_component('App', {user: current_user, csrf: session[:_csrf_token]}) %>
+  </div>
 <% else %>
-  <%= link_to "login", new_user_session_path %>
+  <div class="card  mw-650">
+    <h5 class="card-header">Please login to continue!</h5>
+    <div class="card-body pd-20">
+      <%= link_to "login", new_user_session_path, class: 'btn btn-info btn-lg'%>
+    </div>
+  </div>
 <% end %>
