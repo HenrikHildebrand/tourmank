@@ -43,6 +43,7 @@ class App extends React.Component {
                     <Container  label="Matcher" style={styles.container}>
                         <a className="btn btn-danger" style={styles.logout} onClick={this.logout} >logout</a>
                         <h3>Hello {this.props.user.email}!</h3>
+                        <p>{JSON.stringify(this.props.user)}</p>
                     </Container>
                     <Container  label="Slutspel" style={styles.container}>
                         <h3>Other content</h3>
