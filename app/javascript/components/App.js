@@ -2,17 +2,9 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Swiper from './Swiper'
 import Slide from '@material-ui/core/Slide';
+import Container from './common/Container';
 
 const styles = {
-    body: {
-      height: '100%'
-    },
-    container: {
-        width: '100%',
-        padding: 20,
-        marginTop: 20,
-        bottom: 0
-    },
     logout: {
         color: 'white'
     }
@@ -48,23 +40,21 @@ class App extends React.Component {
         return(
             <Slide direction="up" in={this.state.loaded} >
                 <Swiper>
-                    <div  label="Info" style={styles.container}>
+                    <Container  label="Matcher" style={styles.container}>
                         <a className="btn btn-danger" style={styles.logout} onClick={this.logout} >logout</a>
                         <h3>Hello {this.props.user.email}!</h3>
-                        {['fgsdfdsg','fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg', 'fgsdfdsg','fgsdfdsg','fgsdfdsg','fgsdfdsg','fgsdfdsg'].map(el => (<h1>{el}</h1>))}
-                    </div>
-                    <div  label="Info" style={styles.container}>
+                    </Container>
+                    <Container  label="Slutspel" style={styles.container}>
                         <h3>Other content</h3>
-                    </div>
+                    </Container>
                 </Swiper>
             </Slide>
-
         )
     }
 }
 
 App.defaultProps = {
-    name: 'David'
+    name: 'Henrik'
 }
 
 App.propTypes = {
