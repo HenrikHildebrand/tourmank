@@ -9,6 +9,27 @@ ActiveAdmin.register User do
     actions
   end
 
+  show do
+    panel "Teams" do
+      table_for user.teams do |t|
+        column :name
+        column('Tournament') {|t| link_to(t.tournament.title, admin_tournament_path(t.tournament))}
+        column('Date') {|t| t.tournament.date}
+      end
+    end
+    active_admin_comments
+  end
+
+  sidebar "User details", only: :show do
+    attributes_table_for user do
+      row :first_name
+      row :last_name
+      row :email
+      row :created_at
+      row :updated_at
+    end
+  end
+
   form title: "Edit user" do |f|
 
     f.semantic_errors *f.object.errors.keys
